@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>心海流光</title>
 
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            min-height: 100%;
             overflow: hidden;
-            height: 100vh;
             background: black;
             font-family: 'Poppins', sans-serif;
         }
 
+        body {
+            height: 100dvh;
+        }
+
         .banner {
-            width: 100%;
-            height: 100vh;
+            width: 100vw;
+            height: 100dvh;
+            min-height: 100svh;
             position: relative;
             overflow: hidden;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            padding: 0 18px;
         }
 
         .banner video {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
 
             width: 100%;
             height: 100%;
 
             object-fit: cover;
+            object-position: center center;
 
             pointer-events: none;
+        }
+
+        .banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.18);
+            z-index: 1;
         }
 
         .love-text {
@@ -49,12 +68,11 @@
             align-items: center;
 
             opacity: 0;
-
-            transform: translateY(40px) scale(0.9);
-
+            transform: translateY(32px) scale(0.92);
             transition: all 1.5s ease;
 
             text-align: center;
+            width: 100%;
         }
 
         .love-text.show {
@@ -63,7 +81,7 @@
         }
 
         .line1 {
-            font-size: 4em;
+            font-size: clamp(42px, 13vw, 72px);
             font-weight: 700;
 
             background: linear-gradient(
@@ -76,9 +94,7 @@
             );
 
             background-size: 300% auto;
-
             color: transparent;
-
             background-clip: text;
             -webkit-background-clip: text;
 
@@ -89,23 +105,24 @@
                 0 0 20px rgba(255, 20, 147, 0.5),
                 0 0 40px rgba(255, 192, 203, 0.5);
 
-            letter-spacing: 10px;
+            letter-spacing: 0.12em;
+            white-space: nowrap;
         }
 
         .line2 {
-            margin-top: 20px;
+            margin-top: 16px;
 
-            font-size: 2em;
-
+            font-size: clamp(20px, 6vw, 34px);
             font-weight: 500;
 
             color: #ffd6ea;
-
-            letter-spacing: 5px;
+            letter-spacing: 0.12em;
 
             text-shadow:
                 0 0 8px rgba(255,255,255,0.6),
                 0 0 20px rgba(255,105,180,0.6);
+
+            white-space: nowrap;
         }
 
         @keyframes shine {
@@ -120,14 +137,14 @@
 
         .tip {
             position: fixed;
-            bottom: 35px;
+            left: 0;
+            bottom: calc(28px + env(safe-area-inset-bottom));
             width: 100%;
 
             text-align: center;
 
             color: rgba(255,255,255,0.85);
-
-            font-size: 16px;
+            font-size: 15px;
 
             z-index: 3;
 
@@ -152,16 +169,21 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
+            .banner {
+                align-items: center;
+                padding-bottom: 8vh;
+            }
 
             .line1 {
-                font-size: 2.5em;
-                letter-spacing: 5px;
+                font-size: clamp(40px, 14vw, 60px);
+                letter-spacing: 0.08em;
             }
 
             .line2 {
-                font-size: 1.3em;
-                margin-top: 12px;
+                font-size: clamp(18px, 5.4vw, 26px);
+                letter-spacing: 0.08em;
+                margin-top: 14px;
             }
 
             .tip {
@@ -181,17 +203,12 @@
                loop
                playsinline
                webkit-playsinline>
-
             <source src="video.mp4" type="video/mp4">
-
         </video>
 
         <div class="love-text" id="loveText">
-
             <span class="line1">520 快乐</span>
-
             <span class="line2">LOVE YOU 雯宝</span>
-
         </div>
 
     </div>
@@ -205,33 +222,22 @@
     </audio>
 
     <script>
-
         const page = document.getElementById('page');
-
         const music = document.getElementById('music1');
-
         const video = document.getElementById('bgVideo');
-
         const loveText = document.getElementById('loveText');
-
         const tip = document.getElementById('tip');
 
         page.addEventListener('click', function () {
-
             music.volume = 0.15;
 
             video.play();
-
             music.play();
 
             loveText.classList.add('show');
-
             tip.classList.add('hide');
-
         });
-
     </script>
 
 </body>
-
 </html>
