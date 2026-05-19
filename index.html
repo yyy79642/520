@@ -49,13 +49,18 @@
             object-position: center center;
 
             pointer-events: none;
+            filter:
+               brightness(1.08)
+               contrast(1.08)
+               saturate(1.15)
+               sharpen(1);
         }
 
         .banner::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.18);
+            background: rgba(0, 0, 0, 0.03);
             z-index: 1;
         }
 
