@@ -10,128 +10,228 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
             overflow: hidden;
+            height: 100vh;
             background: black;
+            font-family: 'Poppins', sans-serif;
         }
 
         .banner {
             width: 100%;
             height: 100vh;
+            position: relative;
             overflow: hidden;
+
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
         .banner video {
             position: absolute;
             top: 0;
             left: 0;
-            object-fit: cover;
+
             width: 100%;
             height: 100%;
+
+            object-fit: cover;
+
             pointer-events: none;
         }
 
         .love-text {
             position: relative;
             z-index: 2;
-            font-size: 3.5em;
-            font-weight: bold;
-            color: #ff69b4;
-            text-shadow: 0 0 15px #ff69b4, 0 0 35px #ff1493;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
             opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.8s ease;
+
+            transform: translateY(40px) scale(0.9);
+
+            transition: all 1.5s ease;
+
             text-align: center;
         }
 
         .love-text.show {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0) scale(1);
         }
 
-        .love-text::after {
-            content: 'LOVE YOU 雯宝';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .line1 {
+            font-size: 4em;
+            font-weight: 700;
+
+            background: linear-gradient(
+                90deg,
+                #ffb6d9,
+                #ff69b4,
+                #ffffff,
+                #ff1493,
+                #ffc0cb
+            );
+
+            background-size: 300% auto;
+
             color: transparent;
-            background-image: linear-gradient(to right,
-                    #ff69b4, #ff1493, #ffc0cb, #ffffff,
-                    #ff69b4, #ff1493);
+
             background-clip: text;
             -webkit-background-clip: text;
-            clip-path: circle(100px at 0% 50%);
-            animation: move 5s infinite;
+
+            animation: shine 6s linear infinite;
+
+            text-shadow:
+                0 0 10px rgba(255, 105, 180, 0.6),
+                0 0 20px rgba(255, 20, 147, 0.5),
+                0 0 40px rgba(255, 192, 203, 0.5);
+
+            letter-spacing: 10px;
         }
 
-        @keyframes move {
-            0% {
-                clip-path: circle(100px at 0% 50%);
-            }
+        .line2 {
+            margin-top: 20px;
 
-            50% {
-                clip-path: circle(100px at 100% 50%);
+            font-size: 2em;
+
+            font-weight: 500;
+
+            color: #ffd6ea;
+
+            letter-spacing: 5px;
+
+            text-shadow:
+                0 0 8px rgba(255,255,255,0.6),
+                0 0 20px rgba(255,105,180,0.6);
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 0% center;
             }
 
             100% {
-                clip-path: circle(100px at 0% 50%);
+                background-position: 300% center;
             }
         }
 
         .tip {
             position: fixed;
-            bottom: 30px;
+            bottom: 35px;
             width: 100%;
+
             text-align: center;
-            z-index: 3;
-            color: rgba(255, 255, 255, 0.8);
+
+            color: rgba(255,255,255,0.85);
+
             font-size: 16px;
+
+            z-index: 3;
+
+            animation: breathing 2s infinite;
         }
 
         .tip.hide {
             display: none;
         }
+
+        @keyframes breathing {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .line1 {
+                font-size: 2.5em;
+                letter-spacing: 5px;
+            }
+
+            .line2 {
+                font-size: 1.3em;
+                margin-top: 12px;
+            }
+
+            .tip {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
 <body>
+
     <div class="banner" id="page">
-        <video id="bgVideo" autoplay muted loop playsinline webkit-playsinline>
+
+        <video id="bgVideo"
+               autoplay
+               muted
+               loop
+               playsinline
+               webkit-playsinline>
+
             <source src="video.mp4" type="video/mp4">
+
         </video>
 
         <div class="love-text" id="loveText">
-            LOVE YOU 雯宝
+
+            <span class="line1">520 快乐</span>
+
+            <span class="line2">LOVE YOU 雯宝</span>
+
         </div>
+
     </div>
 
-    <div class="tip" id="tip">点击屏幕播放音乐</div>
+    <div class="tip" id="tip">
+        点击屏幕播放音乐
+    </div>
 
     <audio id="music1" loop preload="auto">
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
 
     <script>
+
         const page = document.getElementById('page');
+
         const music = document.getElementById('music1');
+
         const video = document.getElementById('bgVideo');
+
         const loveText = document.getElementById('loveText');
+
         const tip = document.getElementById('tip');
 
         page.addEventListener('click', function () {
-            music.volume = 0.05;
+
+            music.volume = 0.15;
+
             video.play();
+
             music.play();
 
             loveText.classList.add('show');
+
             tip.classList.add('hide');
+
         });
+
     </script>
+
 </body>
 
 </html>
